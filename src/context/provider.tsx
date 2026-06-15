@@ -150,6 +150,7 @@ export const AppContext = createContext({
   handleAddTodoList: (_: string) => {},
   handleTodoItemChecked: (_id: string, _checked: boolean) => {},
   handleTodoItemDelete: (_: string) => {},
+  handleTodoItemUpdate: (_id: string, _content: string) => {},
   setTodoList: (_: TodoList) => {},
   todoListVisbility: true,
   setTodoListVisbility: (_: boolean) => {},
@@ -987,6 +988,23 @@ export default function AppProvider({ children }: { children: ReactNode }) {
     [todoList, handleTodoListUpdate, handleClearCompletedTodoList],
   );
 
+  const handleTodoItemUpdate = useCallback(
+    (id: string, content: string) => {
+      const updatedTodoList = todoList.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            content,
+          };
+        }
+        return item;
+      });
+
+      handleTodoListUpdate(updatedTodoList);
+    },
+    [todoList, handleTodoListUpdate],
+  );
+
   const handleTodoItemDelete = useCallback(
     (id: string) => {
       const updatedTodoList = todoList.filter((item) => {
@@ -1142,6 +1160,7 @@ export default function AppProvider({ children }: { children: ReactNode }) {
       setTodoListVisbility,
       handleTodoListUpdate,
       handleTodoItemDelete,
+      handleTodoItemUpdate,
       handleClearCompletedTodoList,
       setTodoList,
       groupTodosByCheckedStatus,
@@ -1247,6 +1266,7 @@ export default function AppProvider({ children }: { children: ReactNode }) {
       setTodoListVisbility,
       handleTodoListUpdate,
       handleTodoItemDelete,
+      handleTodoItemUpdate,
       handleClearCompletedTodoList,
       setTodoList,
       groupTodosByCheckedStatus,

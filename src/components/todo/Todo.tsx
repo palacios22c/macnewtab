@@ -3,6 +3,7 @@ import "./Todo.css";
 import { AppContext } from "../../context/provider";
 import Checkbox from "../checkbox/Checkbox";
 import { ReactComponent as DeleteIcon } from "../../assets/delete-icon.svg";
+import { ReactComponent as EditIcon } from "../../assets/edit-icon.svg";
 import linkify from "../../utils/linkify";
 import Translation from "../../locale/Translation";
 import { translation } from "../../locale/languages";
@@ -19,6 +20,8 @@ export default function TodoDialog({
   const [modalAccessible, setModalAccessible] = useState(false);
   const [renderOpen, setRenderOpen] = useState(false);
   const [todoInput, setTodoInput] = useState("");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingContent, setEditingContent] = useState("");
   const {
     locale,
     dockPosition,
@@ -26,6 +29,7 @@ export default function TodoDialog({
     handleAddTodoList,
     handleTodoItemChecked,
     handleTodoItemDelete,
+    handleTodoItemUpdate,
     handleClearCompletedTodoList,
     handleTodoListUpdate,
   } = useContext(AppContext);
@@ -187,14 +191,66 @@ export default function TodoDialog({
                     handleTodoItemChecked(item.id, e.target.checked);
                   }}
                 />
-                <span>{linkify(item.content)}</span>
+                {editingId === item.id ? (
+                  <input
+                    autoFocus
+                    className="todo-list-title__edit-input"
+                    value={editingContent}
+                    onChange={(e) => setEditingContent(e.target.value)}
+                    onMouseDown={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onBlur={() => {
+                      if (editingContent.trim() && editingContent !== item.content) {
+                        handleTodoItemUpdate(item.id, editingContent);
+                      }
+                      setEditingId(null);
+                    }}
+                    onKeyDown={(e) => {
+                      e.stopPropagation();
+                      if (e.key === "Enter") {
+                        if (editingContent.trim() && editingContent !== item.content) {
+                          handleTodoItemUpdate(item.id, editingContent);
+                        }
+                        setEditingId(null);
+                      } else if (e.key === "Escape") {
+                        setEditingId(null);
+                      }
+                    }}
+                  />
+                ) : (
+                  <span
+                    title="Double click to edit"
+                    onDoubleClick={() => {
+                      setEditingId(item.id);
+                      setEditingContent(item.content);
+                    }}
+                  >
+                    {linkify(item.content)}
+                  </span>
+                )}
               </div>
-              <button
-                className="todo-list-item__delete button-icon"
-                onClick={() => handleTodoItemDelete(item.id)}
-              >
-                <DeleteIcon />
-              </button>
+              <div className="todo-list-item__actions">
+                <button
+                  className="todo-list-item__edit button-icon"
+                  title="Edit"
+                  onClick={() => {
+                    setEditingId(item.id);
+                    setEditingContent(item.content);
+                  }}
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
+                >
+                  <EditIcon />
+                </button>
+                <button
+                  className="todo-list-item__delete button-icon"
+                  onClick={() => handleTodoItemDelete(item.id)}
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
+                >
+                  <DeleteIcon />
+                </button>
+              </div>
             </div>
           )}
         />

@@ -129,11 +129,31 @@
   word-break: break-word;
 }
 
+.todo-list-title__edit-input {
+  border: none;
+  background: inherit;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  outline: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid var(--theme-border);
+}
+
 .todo-list-title__container.checked {
   text-decoration: line-through;
 }
 
-.todo-list-item__delete {
+.todo-list-item__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.todo-list-item__delete, .todo-list-item__edit {
   align-self: center;
 }
 
