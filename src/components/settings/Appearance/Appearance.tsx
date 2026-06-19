@@ -28,6 +28,8 @@ export default function Appearance() {
     setDynamicWallpaperTheme,
     interactiveWallpaperTheme,
     setInteractiveWallpaperTheme,
+    centerWidgetsLayout,
+    setCenterWidgetsLayout,
   } = useContext(AppContext);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,6 +108,54 @@ export default function Appearance() {
               onClick={() => setThemeColor(item)}
             ></button>
           ))}
+        </div>
+      </div>
+
+      <div className="appearance__layout-selection-container">
+        <Translation value="center_widgets_layout" />
+        <div className="appearance__layout-selection">
+          <button
+            className={
+              "appearance__layout-option" +
+              (centerWidgetsLayout === "default" ? " selected" : "")
+            }
+            onClick={() => setCenterWidgetsLayout("default")}
+          >
+            <div className="layout-skeleton skeleton-default">
+              <div className="skeleton-section-1">
+                <div className="skeleton-box"></div>
+                <div className="skeleton-box"></div>
+              </div>
+              <div className="skeleton-section-2">
+                <div className="skeleton-bar"></div>
+                <div className="skeleton-bar long"></div>
+              </div>
+            </div>
+            <div className="appearance__layout-label">
+              <Translation value="layout_default" />
+            </div>
+          </button>
+          <button
+            className={
+              "appearance__layout-option" +
+              (centerWidgetsLayout === "reversed" ? " selected" : "")
+            }
+            onClick={() => setCenterWidgetsLayout("reversed")}
+          >
+            <div className="layout-skeleton skeleton-reversed">
+              <div className="skeleton-section-2">
+                <div className="skeleton-bar"></div>
+                <div className="skeleton-bar long"></div>
+              </div>
+              <div className="skeleton-section-1">
+                <div className="skeleton-box"></div>
+                <div className="skeleton-box"></div>
+              </div>
+            </div>
+            <div className="appearance__layout-label">
+              <Translation value="layout_reversed" />
+            </div>
+          </button>
         </div>
       </div>
 

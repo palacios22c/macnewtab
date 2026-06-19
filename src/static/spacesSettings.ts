@@ -15,6 +15,7 @@ import {
   USE_SEARCH_DROPDOWN_LOCAL_STORAGE_KEY,
   ENABLE_LOAD_ANIMATION_LOCAL_STORAGE_KEY,
   LOAD_ANIMATION_TYPE_LOCAL_STORAGE_KEY,
+  CENTER_WIDGETS_LAYOUT_LOCAL_STORAGE_KEY,
 } from "./generalSettings";
 import {
   THEME_LOCAL_STORAGE_KEY,
@@ -174,6 +175,8 @@ export const PER_SPACE_KEYS: string[] = [
 
   // Freeform data
   FREEFORM_DATA_LOCAL_STORAGE_KEY, // "macnewtab_freeform_data"
+
+  CENTER_WIDGETS_LAYOUT_LOCAL_STORAGE_KEY,
 ];
 
 // ─── Helpers ───

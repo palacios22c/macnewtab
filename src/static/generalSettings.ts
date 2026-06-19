@@ -15,3 +15,7 @@ export const ENABLE_LOAD_ANIMATION_LOCAL_STORAGE_KEY = "enable_load_animation";
 export const LOAD_ANIMATION_TYPE_LOCAL_STORAGE_KEY = "load_animation_type";
 export const CLOCK_STYLE_LOCAL_STORAGE_KEY = "clock_style";
 export const USE_SEARCH_DROPDOWN_LOCAL_STORAGE_KEY = "use_search_dropdown";
+export const CENTER_WIDGETS_LAYOUT_LOCAL_STORAGE_KEY = "center_widgets_layout";
+
+export const centerWidgetsLayoutsList = ["default", "reversed"] as const;
+export type CenterWidgetsLayout = typeof centerWidgetsLayoutsList[number];

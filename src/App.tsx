@@ -63,6 +63,7 @@ const App = function App() {
     activeSpaceId,
     activeSpace,
     spacesConfig,
+    centerWidgetsLayout,
   } = useContext(AppContext);
 
   const [isWakingUp, setIsWakingUp] = useState(enableLoadAnimation);
@@ -231,7 +232,8 @@ const App = function App() {
           "main-content" +
           (showClockAndCalendar ? " has-clock-calendar" : "") +
           (isWidgetsAwayFromDock ? " widgets-away-from-dock" : "") +
-          ` dock-${dockPosition}`
+          ` dock-${dockPosition}` +
+          ` layout-${centerWidgetsLayout}`
         }
       >
         {showClockAndCalendar && (

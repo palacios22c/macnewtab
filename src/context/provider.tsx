@@ -43,6 +43,9 @@ import {
   LOAD_ANIMATION_TYPE_LOCAL_STORAGE_KEY,
   CLOCK_STYLE_LOCAL_STORAGE_KEY,
   USE_SEARCH_DROPDOWN_LOCAL_STORAGE_KEY,
+  CENTER_WIDGETS_LAYOUT_LOCAL_STORAGE_KEY,
+  CenterWidgetsLayout,
+  centerWidgetsLayoutsList,
 } from "../static/generalSettings";
 import { CUSTOM_LAUNCHPAD_LINKS_LOCAL_STORAGE_KEY } from "../static/launchpadSettings";
 import {
@@ -234,6 +237,8 @@ export const AppContext = createContext({
   handleDeleteSpace: async (_: string) => {},
   handleUpdateSpace: (_: Space) => {},
   handleUpdateSpacesConfig: (_: SpacesConfig) => {},
+  centerWidgetsLayout: "default" as CenterWidgetsLayout,
+  setCenterWidgetsLayout: (_: CenterWidgetsLayout) => {},
 });
 
 export default function AppProvider({ children }: { children: ReactNode }) {
@@ -519,6 +524,13 @@ export default function AppProvider({ children }: { children: ReactNode }) {
     ENABLE_LOAD_ANIMATION_LOCAL_STORAGE_KEY,
     false,
     undefined,
+    activeSpaceId,
+  );
+
+  const [centerWidgetsLayout, setCenterWidgetsLayout] = useLocalStorage<CenterWidgetsLayout>(
+    CENTER_WIDGETS_LAYOUT_LOCAL_STORAGE_KEY,
+    "default",
+    (val) => centerWidgetsLayoutsList.includes(val as any),
     activeSpaceId,
   );
 
@@ -1219,6 +1231,8 @@ export default function AppProvider({ children }: { children: ReactNode }) {
       setEnableLoadAnimation,
       loadAnimationType,
       setLoadAnimationType,
+      centerWidgetsLayout,
+      setCenterWidgetsLayout,
       // Spaces
       spacesConfig,
       activeSpaceId,
@@ -1325,6 +1339,8 @@ export default function AppProvider({ children }: { children: ReactNode }) {
       setEnableLoadAnimation,
       loadAnimationType,
       setLoadAnimationType,
+      centerWidgetsLayout,
+      setCenterWidgetsLayout,
       // Spaces
       spacesConfig,
       activeSpaceId,

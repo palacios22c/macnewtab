@@ -655,6 +655,14 @@ body:has(.App.theme-rose) {
   align-self: center;
 }
 
+.main-content.layout-reversed .section-1 {
+  order: 2;
+}
+.main-content.layout-reversed .section-2 {
+  order: 1;
+}
+
+
 .accessible:focus-visible,
 .accessible:has(input:focus-visible),
 button:focus-visible {
